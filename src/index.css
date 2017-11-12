@@ -2,4 +2,17 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}
+
+.ant-layout {
+  height: 100%;
+}
+
+.layout-page {
+  height: 100%;
 }

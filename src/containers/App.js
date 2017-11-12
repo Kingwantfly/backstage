@@ -1,13 +1,23 @@
-import React, { Component } from 'react'
-import { Route, Link } from 'react-router-dom'
-import Login from './Login'
+import React, { Component } from 'react';
+import {  BrowserRouter as Router } from 'react-router-dom';
+import { Layout } from 'antd';
+import LayoutSide from '../components/LayoutSide';
+import '../css/layout.scss';
+import MyRoutes from '../routes/route';
+
+const { Content } = Layout;
 
 class App extends Component {
   render() {
     return (
-      <div className="">
-        <Route exact path='/' component={Login} />
-      </div>
+      <Router>
+        <Layout>
+            <LayoutSide />
+            <Content>
+              <MyRoutes />
+            </Content>
+          </Layout>
+      </Router>
     );
   }
 }

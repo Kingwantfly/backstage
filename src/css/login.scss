@@ -1,251 +1,95 @@
-@import 'variable';
+@import 'commonstyle';
 
-body {
-  // sass-lint:disable no-url-domains no-url-protocols
-  background-image: url('//cdn.redshift.cc/web/home/ver3.1/background.jpg');
-  background-size: cover;
+#components-form-demo-normal-login .login-form {
+  max-width: 300px;
 }
+
+#components-form-demo-normal-login .login-form-forgot {
+  float: right;
+}
+
+#components-form-demo-normal-login .login-form-button {
+  width: 100%;
+}
+
+// body {
+//   // sass-lint:disable no-url-domains no-url-protocols
+//   background-image: url('//cdn.redshift.cc/web/home/ver3.1/background.jpg');
+//   background-size: cover;
+// }
 
 .login-page {
+  background-image: url('//cdn.redshift.cc/web/home/ver3.1/background.jpg');
+  background-size: cover;
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  min-height: 675px;
-  overflow: auto;
   position: relative;
-
-  .ant-input-group-wrapper {
-    width: 100%;
-  }
+  width: 100%;
+  height: 100vh;
+  min-height: 625px;
+  overflow: auto;
+  padding: 5%;
 }
 
-.container {
-  background: $redshift-color-rgba;
-  border-radius: 7px;
-  flex: 1;
-  left: 50%;
+.login-container {
   position: absolute;
-  text-align: center;
+  left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 450px;
+  text-align: center;
 
-  & > img {
+  .login-logo {
     height: 80px;
     margin: 0 auto;
     margin-bottom: 30px;
     width: 80px;
   }
-}
-
-.login-form {
-  background: $redshift-color-gray-1;
-  border-radius: 7px;
-  padding: 16px 0 30px;
 
   .login-title {
-    border-bottom: 1px $redshift-border-color solid;
-    font-size: $redshift-font-size-sub-head;
+    color: $redshift-color-gray-1;
+    font-size: $redshift-font-show-sub;
     font-weight: $redshift-font-weight-bold;
-    padding-bottom: 16px;
-    padding-left: 16px;
+    margin-bottom: 20px;
+  }
+}
+
+.login-form-container {
+  background: $redshift-color-gray-1;
+  border: 1px solid $redshift-border-color;
+  border-radius: 10px;
+  width: 450px;
+  height: 350px;
+  flex: 1;
+
+  .login-title-name {
+    font-size: $redshift-font-size-sub-head;
     text-align: left;
-  }
-}
-
-.error-container {
-  height: 40px;
-
-  .error-content {
-    color: $antd-error;
-    display: inline-block;
-    line-height: 40px;
-    text-align: center;
-    width: 100%;
-  }
-}
-
-.hr {
-  border-bottom: 1px solid $redshift-color-hr;
-  margin-bottom: 20px;
-  margin-top: 10px;
-}
-
-h1 {
-  color: $main-theme-color;
-  font-size: 48px;
-}
-
-.form-container {
-  margin: 0 auto;
-  width: 75%;
-}
-
-p {
-  color: $redshift-color-gray-1;
-  display: inline-block;
-  font-size: 24px;
-  padding: 0 5px 5px;
-}
-
-.reg-input-large {
-  height: 40px;
-}
-
-.reg-icon {
-  width: 25px;
-}
-
-.reg-btn {
-  color: $redshift-color-gray-1;
-  font-weight: normal;
-  height: 40px;
-  width: 100%;
-
-  & > span {
-    font-size: $redshift-font-size-main-head;
-  }
-}
-
-.wechat-login {
-  display: inline-block;
-  margin-top: -10px;
-  text-align: center;
-
-  & > a {
-    color: $main-theme-color;
+    padding: 10px;
+    border-bottom: 1px solid $redshift-border-color;
+    margin-bottom: 50px;
   }
 
-  & > img {
-    float: left;
-    height: 20px;
-    width: 20px;
+  .login-form {
+    margin: 0 auto;
+    width: 80%;
+
+    .login-help {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .login-form-button {
+      width: 100%;
+      height: 40px;
+    }
   }
-}
-
-.forget-password {
-  height: 16px;
-  margin-bottom: 16px;
-  position: relative;
-
-  & > a {
-    color: $main-theme-color;
-    position: absolute;
-    right: 0;
-    text-align: right;
-  }
-}
-
-.lang-change {
-  color: $main-theme-color;
-  float: left;
-  padding-bottom: 10px;
-  padding-right: 50px;
-  text-align: left;
 }
 
 .login-footer {
-  bottom: 0;
   color: $redshift-color-gray-1;
-  left: 50%;
-  padding: 20px 0;
   position: absolute;
-  text-align: center;
+  bottom: 20px;
+  left: 50%;
   transform: translateX(-50%);
-  width: 450px;
-}
-
-.inline {
-  display: inline-block;
-}
-
-.forget-password-description {
-  color: $redshift-color-gray-6;
-}
-
-.forget-password-description-container {
-  margin-bottom: 8px;
-}
-
-.back-to-login {
-  float: right;
-}
-
-.clear-both {
-  clear: both;
-}
-
-.invoice-verify-image-container {
-  display: inline-block;
-  height: 40px;
-  margin-left: 16px;
-  width: 80px;
-}
-
-.invoice-verify-image {
-  cursor: pointer;
-  display: inline-block;
-  height: 40px;
-  vertical-align: middle;
-  width: auto;
-}
-
-.phone-code-verify-button {
-  cursor: not-allowed;
-  height: 38px;
-  line-height: 38px;
-  width: 92px;
-}
-
-.phone-code-verify-button-active {
-  background-color: $main-theme-color;
-  color: $redshift-color-gray-1;
-  cursor: pointer;
-
-  &:hover {
-    background-color: $main-theme-color-hover;
-  }
-
-  &:active {
-    background-color: $main-theme-color-active;
-  }
-}
-
-.input-group-container {
-  .ant-input-group-wrapper {
-    width: 100%;
-  }
-
-  .ant-input-group-addon {
-    padding: 0;
-  }
-}
-
-.resize-input {
-  width: 128px;
-}
-
-.change-image-description {
-  display: inline-block;
-  margin-left: 4px;
-  vertical-align: middle;
-}
-
-.change-image-description-line-height {
-  line-height: 20px;
-}
-
-// sass-lint:disable no-vendor-prefixes no-important force-pseudo-nesting nesting-depth
-.material-text-field-container {
-  input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0 1000px $redshift-color-gray-1 inset;
-  }
-
-  .material-text-field-label {
-    font-size: $redshift-font-size-main-head;
-
-    i {
-      font-size: $redshift-font-size-main-head;
-    }
-  }
+  white-space: nowrap;
 }
