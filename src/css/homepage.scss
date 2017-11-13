@@ -21,7 +21,7 @@
 
 .content-back {
   background-color: $redshift-color-gray-1;
-  padding: 10px;
+  padding: 20px;
   position: relative;
   min-width: 1000px;
   height: 100%;
@@ -29,7 +29,7 @@
   .home-search {
     position: absolute;
     right: 20px;
-    top: 15px;
+    top: 30px;
   }
 
   .content-search {
@@ -57,6 +57,14 @@
 .filter-btn {
   text-align: center;
   margin: 10px 0;
+
+  .ant-btn {
+    margin: 0 10px;
+  }
+}
+
+.edit-btn {
+  text-align: center;
 
   .ant-btn {
     margin: 0 10px;

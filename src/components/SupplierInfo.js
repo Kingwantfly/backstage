@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Cascader, Col, Form, Input, Modal, Popconfirm, Row } from 'antd';
-import 'url-search-params-polyfill';
+import { Button, Col, Form, Input, Modal, Popconfirm, Row } from 'antd';
 
 const FormItem = Form.Item;
 
@@ -11,7 +10,6 @@ class SupplierInfo extends Component {
     super(props);
     this.state = {
       contacts: [],
-      options: [],
       editable: false
     }
     this.getOperationButton = this.getOperationButton.bind(this);
@@ -22,7 +20,6 @@ class SupplierInfo extends Component {
   }
 
   handleEdit (params) {
-    let search = new URLSearchParams (window.location.search);
     this.setState({
       editable: params
     })
@@ -80,14 +77,6 @@ class SupplierInfo extends Component {
   handleSubmit (e) {
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        if (this.state.contacts.length === 0) {
-          Modal.error({
-            title: '错误',
-            content: '请至少添加一个联系人',
-            okText: '确定'
-          })
-          return
-        }
         let params = {
           address: values.address,
           accountCityCode: values.bankCity && values.bankCity[1],
@@ -95,13 +84,13 @@ class SupplierInfo extends Component {
           bankAccount: values.bankAccount,
           bankAccountNumber: values.bankAccountNumber,
           bankName: values.bankName,
-          cityCode: values.residence[1],
+          cityCode: values.address,
           companyName: values.companyName,
           companyWebsite: values.companyWebsite,
           contacts: this.state.contacts,
           openBranch: values.openBranch,
           paymentTerms: values.paymentTerms,
-          provinceCode: values.residence[0],
+          provinceCode: values.province,
           supervisorName: values.supervisorName,
           supervisorPhone: values.supervisorPhone
         }
@@ -110,7 +99,7 @@ class SupplierInfo extends Component {
         }
         if (this.props.connectionId) {
           params.connectionId = this.props.connectionId
-          this.props.getSupplierDetail(params)
+          this.props.changeSupplier(params)
         } else {
           this.props.createSupplierConnection(params)
         }
@@ -184,22 +173,21 @@ class SupplierInfo extends Component {
               {...formItemLayout}
               label='供应商地址'
             >
-              {getFieldDecorator('residence', {
-                initialValue: connection.provinceCode ? [connection.provinceCode, connection.cityCode] : null,
+              {getFieldDecorator('cityCode', {
+                initialValue: connection.cityCode,
                 rules: [{
-                  type: 'array',
-                  required: true,
-                  message: '请选择供应商所在城市'
+                  type: 'string',
+                  required: true
                 }]
               })(
-                <Cascader disabled={!this.state.editable} options={this.state.options} placeholder='请输入供应商地址' />
+                <Input disabled={!this.state.editable} placeholder={this.state.editable ? '请输入' : ''} />
               )}
             </FormItem>
             <FormItem
               {...formItemLayout}
               label='联系人'
             >
-              {getFieldDecorator('paymentTerms', {
+              {getFieldDecorator('contactName', {
                 initialValue: connection.contactName,
                 rules: [{
                   required: true,
@@ -289,10 +277,10 @@ class SupplierInfo extends Component {
                     {...formItemLayout}
                     label='开户城市'
                     >
-                    {getFieldDecorator('bankCity', {
-                      initialValue: [connection.accountProvinceCode, connection.accountCityCode]
+                    {getFieldDecorator('accountCity', {
+                      initialValue: connection.accountCity,
                     })(
-                      <Cascader disabled={!this.state.editable} options={this.state.options} placeholder='请选择账户所在城市' />
+                      <Input disabled={!this.state.editable} placeholder={this.state.editable ? '请输入' : ''} />
                     )}
                   </FormItem>
                   <FormItem
@@ -379,7 +367,7 @@ class SupplierInfo extends Component {
               {...formItemLayout}
               label='默认账期'
             >
-              {getFieldDecorator('companyName', {
+              {getFieldDecorator('paymentTerms', {
                 initialValue: connection.paymentTerms,
                 rules: [{
                   message: '请输入账期'
@@ -393,7 +381,7 @@ class SupplierInfo extends Component {
         {
           buttonGroup
           ? (
-            <div>
+            <div className="edit-btn">
               <div className='form-footer'>
                 {buttonGroup}
               </div>

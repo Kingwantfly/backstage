@@ -10,6 +10,9 @@ const ERROR_SEND_SUPPLIER_INVITATION = 'ERROR_SEND_SUPPLIER_INVITATION';
 const REQUEST_GET_SUPPLIER_DETAIL = 'REQUEST_GET_SUPPLIER_DETAIL';
 const SUCCESS_GET_SUPPLIER_DETAIL = 'SUCCESS_GET_SUPPLIER_DETAIL';
 const ERROR_GET_SUPPLIER_DETAIL = 'ERROR_GET_SUPPLIER_DETAIL';
+const REQUEST_CHANGE_SUPPLIER = 'REQUEST_CHANGE_SUPPLIER';
+const SUCCESS_CHANGE_SUPPLIER = 'SUCCESS_CHANGE_SUPPLIER';
+const ERROR_CHANGE_SUPPLIER = 'ERROR_CHANGE_SUPPLIER';
 // reducer
 export default (state = {}, action) => {
   switch (action.type) {
@@ -54,6 +57,20 @@ export default (state = {}, action) => {
         error: action.err,
         isGettingSupplierDetail: false
     })
+    case REQUEST_CHANGE_SUPPLIER:
+      return Object.assign({}, state, {
+        isGettingSupplierDetail: true
+    })
+    case SUCCESS_CHANGE_SUPPLIER:
+      return Object.assign({}, state, {
+        SupplierDetail: action.val,
+        isGettingSupplierDetail: false
+    })
+    case ERROR_CHANGE_SUPPLIER:
+      return Object.assign({}, state, {
+        error: action.err,
+        isGettingSupplierDetail: false
+    })
     default: {
       return state;
     }
@@ -83,7 +100,6 @@ function onErrorGetSupplierList (err) {
 
 export function getSupplierList (params) {
   const url = `//api.test.redshift.cc/admin/connections?companyId=${params}`
-  console.log(url);
   return function (dispatch) {
     dispatch(requestGetSupplierList())
     return fetchCreator({
@@ -115,7 +131,6 @@ function onErrorSendSupplierInvitation (err) {
 }
 
 export function sendSupplierInvitation (params) {
-  console.log(params);
   return function (dispatch) {
     dispatch(requestSendSupplierInvitation())
     return fetchCreator({
@@ -156,6 +171,40 @@ export function getSupplierDetail (params) {
       url: url,
       success: json => dispatch(onSuccessGetSupplierDetail(json.data)),
       error: error => dispatch(onErrorGetSupplierDetail(error))
+    })
+  }
+}
+// 修改供应商
+function requestChangeSupplier () {
+  return {
+    type: REQUEST_CHANGE_SUPPLIER
+  }
+}
+
+function onSuccessChangeSupplier (val) {
+  return {
+    type: SUCCESS_CHANGE_SUPPLIER,
+    val: val
+  }
+}
+
+function onErrorChangeSupplier (err) {
+  return {
+    type: ERROR_CHANGE_SUPPLIER,
+    err: err
+  }
+}
+
+export function changeSupplier (params) {
+  const url = `//api.test.redshift.cc/admin/connections/connectionId=${params.connectionId}`
+  return function (dispatch) {
+    dispatch(requestChangeSupplier())
+    return fetchCreator({
+      url: url,
+      method: 'POST',
+      body: params,
+      success: json => dispatch(onSuccessChangeSupplier(json.data)),
+      error: error => dispatch(onErrorChangeSupplier(error))
     })
   }
 }

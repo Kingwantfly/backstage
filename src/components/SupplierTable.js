@@ -18,6 +18,7 @@ class SupplierTable extends Component {
     this.start = this.start.bind(this);
     this.handleSelectAll = this.handleSelectAll.bind(this);
     this.handleSelection = this.handleSelection.bind(this);
+    this.sendEmail = this.sendEmail.bind(this);
   }
 
   componentWillReceiveProps (nextProps) {
@@ -98,6 +99,14 @@ class SupplierTable extends Component {
     console.log(selectedRowKeys);
   }
 
+  sendEmail = (record) => {
+    const data = {
+      connectionId: []
+    }
+    data.connectionId.push(record.connectionId)
+    this.props.sendSupplierInvitation(data)
+  }
+
   getList () {
     let headerData = [{
       title: '供应商编号/名称',
@@ -134,7 +143,7 @@ class SupplierTable extends Component {
         <span>
           <Link className='hoverable-link' to={`${window.location.pathname}/detail?connectionId=${record.connectionId}`}>查看</Link>
           <span className="ant-divider" />
-          <a >重新邀请</a>
+          <a onClick={() => this.sendEmail(record)}>重新邀请</a>
           <span className="ant-divider" />
           <Link className='hoverable-link' to='#'>审核</Link>
         </span>
@@ -145,7 +154,6 @@ class SupplierTable extends Component {
 
   render () {
     const list = this.getList()
-    // console.log(this.props.supplierList && this.props.supplierList.connections);
     const data = this.props.supplierList && this.props.supplierList.connections
     const { loading, selectedRowKeys,  } = this.state;
     const hasSelected = selectedRowKeys.length > 0;

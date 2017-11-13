@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getSupplierDetail } from '../reducer/modules/supplier';
+import { getSupplierDetail, changeSupplier } from '../reducer/modules/supplier';
 import SupplierInfo from '../components/SupplierInfo';
 import 'url-search-params-polyfill';
 import { Tabs } from 'antd';
@@ -12,7 +12,6 @@ const TabPane = Tabs.TabPane;
 class SupplierDetail extends Component {
 
   componentDidMount () {
-    console.log(this.props.location);
     let search = new URLSearchParams (this.props.location.search);
     const connectionId = search.get('connectionId');
     this.props.actions.getSupplierDetail(connectionId);
@@ -31,6 +30,7 @@ class SupplierDetail extends Component {
               connection={connection}
               getSupplierDetail={this.props.actions.getSupplierDetail}
               connectionId={connectionId}
+              changeSupplier={this.props.actions.changeSupplier}
             />
           </TabPane>
           <TabPane tab="供应关系数据" key="company">供应关系数据</TabPane>
@@ -50,7 +50,8 @@ function mapStateToProps (state) {
 function mapDispatchToProps (dispatch) {
   return {
     actions: bindActionCreators({
-      getSupplierDetail
+      getSupplierDetail,
+      changeSupplier
     }, dispatch)
   }
 }

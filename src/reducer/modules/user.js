@@ -14,7 +14,7 @@ function loginProgress (val) {
   window.localStorage.setItem('user', JSON.stringify(val.user))
   window.localStorage.setItem('permissions', JSON.stringify(val.user.permissions))
   window.localStorage.setItem('theme', val.user.theme)
-  window.location.reload()
+  window.location.href='/home'
 }
 
 export default (state = initialState, action) => {
@@ -25,7 +25,7 @@ export default (state = initialState, action) => {
     })
     case SUCCESS_LOGIN_USER:
       return Object.assign({}, state, {
-        loginState: false
+        loginState: true
     })
     case ERROR_LOGIN_USER:
       return Object.assign({}, state, {

@@ -1,25 +1,34 @@
-import React, { Component } from 'react';
-import {  BrowserRouter as Router } from 'react-router-dom';
+import React from 'react';
+import {  BrowserRouter as Router, Route } from 'react-router-dom';
 import { Layout } from 'antd';
 import LayoutSide from '../components/LayoutSide';
+import TopHeader from '../components/TopHeader';
 import '../css/layout.scss';
-import MyRoutes from '../routes/route';
-
+import routes from '../routes/index';
 const { Content } = Layout;
 
-class App extends Component {
-  render() {
-    return (
-      <Router>
-        <Layout>
-            <LayoutSide />
-            <Content>
-              <MyRoutes />
-            </Content>
-          </Layout>
-      </Router>
-    );
-  }
+const RouteWithSubRoutes = (route) => {
+  return (
+  <Route path={route.path} exact={route.exact} render={props => (
+    // pass the sub-routes down to keep nesting
+    <route.component {...props} routes={route.routes}/>
+  )}/>
+)}
+
+const App = ({ routes }) => {
+  return (
+    <Layout>
+      <TopHeader />
+      <Layout>
+        <LayoutSide />
+        <Content>
+          {routes.map((route, i) => (
+            <RouteWithSubRoutes key={i} {...route}/>
+          ))}
+        </Content>
+      </Layout>
+    </Layout>
+  )
 }
 
 export default App;

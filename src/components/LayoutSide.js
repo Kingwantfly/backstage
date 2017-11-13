@@ -4,14 +4,14 @@ import { Link } from 'react-router-dom';
 const { Sider } = Layout;
 
 export default class LayoutSide extends Component {
-  
+
   render() {
     return (
       <Sider className="layout-side">
         <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
           <Menu.Item key="1">
             <Icon type="user" />
-            <span className="link-to"><Link to='/'><span className="link-color">核心企业管理</span></Link></span>
+            <span className="link-to"><Link to='/home'><span className="link-color">核心企业管理</span></Link></span>
           </Menu.Item>
           <Menu.Item key="2">
             <Icon type="upload" />

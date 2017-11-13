@@ -21,6 +21,7 @@ class User extends Component {
           loginAccount: values.loginAccount,
           password: values.password
         }
+        console.log(data);
         this.props.login(data);
       }
     });

@@ -45,6 +45,17 @@
   padding-top: 50px;
 }
 
-.ant-layout-content {
-  padding: 20px;
+.top-header {
+  border-bottom: 1px solid $redshift-color-gray-1;
+  color: $redshift-color-gray-1;
+  display: flex;
+  justify-content: space-between;
+
+  .top-title {
+    font-size: $redshift-font-show-sub;
+  }
+
+  .top-user {
+    font-size: $redshift-font-size-sub-head;
+  }
 }
