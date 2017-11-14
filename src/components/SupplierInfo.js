@@ -9,7 +9,6 @@ class SupplierInfo extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      contacts: [],
       editable: false
     }
     this.getOperationButton = this.getOperationButton.bind(this);
@@ -29,11 +28,6 @@ class SupplierInfo extends Component {
 
   handleCancel () {
     this.props.form.resetFields()
-    let params = []
-    params = params.concat(this.props.connection.contacts)
-    this.setState({
-      contacts: params
-    })
     this.handleEdit(false)
   }
 
@@ -70,29 +64,26 @@ class SupplierInfo extends Component {
       if (!err) {
         let params = {
           address: values.address,
-          accountCityCode: values.bankCity && values.bankCity[1],
-          accountProvinceCode: values.bankCity && values.bankCity[0],
+          contactName: values.contactName,
+          email: values.email,
+          accountCityCode: values.accountCityCode,
           bankAccount: values.bankAccount,
           bankAccountNumber: values.bankAccountNumber,
           bankName: values.bankName,
-          cityCode: values.address,
-          companyName: values.companyName,
+          cityCode: values.cityCode,
+          supplierCompanyName: values.supplierCompanyName,
           companyWebsite: values.companyWebsite,
-          contacts: this.state.contacts,
           openBranch: values.openBranch,
           paymentTerms: values.paymentTerms,
           provinceCode: values.province,
           supervisorName: values.supervisorName,
-          supervisorPhone: values.supervisorPhone
-        }
-        if (this.props.uploadDoc) {
-          params['aduitDetailsMediaId'] = this.props.uploadDoc.mediaId
+          supervisorPhone: values.supervisorPhone,
+          contactPhone: values.contactPhone
         }
         if (this.props.connectionId) {
           params.connectionId = this.props.connectionId
           this.props.changeSupplier(params)
-        } else {
-          this.props.createSupplierConnection(params)
+          this.setState({editable: false})
         }
       }
     })
@@ -148,7 +139,7 @@ class SupplierInfo extends Component {
               {...formItemLayout}
               label='供应商名称'
             >
-              {getFieldDecorator('companyName', {
+              {getFieldDecorator('supplierCompanyName', {
                 initialValue: connection.supplierCompanyName,
                 rules: [{
                   required: true,
@@ -212,6 +203,20 @@ class SupplierInfo extends Component {
                 <Input disabled={!this.state.editable} placeholder={this.state.editable ? '请输入' : ''} />
               )}
             </FormItem>
+            <FormItem
+              {...formItemLayout}
+              label='联系人电话'
+            >
+              {getFieldDecorator('contactPhone', {
+                initialValue: connection.contactPhone,
+                rules: [{
+                  required: true,
+                  message: '请输入联系人电话'
+                }]
+              })(
+                <Input disabled={!this.state.editable} placeholder={this.state.editable ? '请输入' : ''} />
+              )}
+            </FormItem>
           </Col>
         </Row>
         <Row>
@@ -226,7 +231,7 @@ class SupplierInfo extends Component {
                     {...formItemLayout}
                     label='邮箱账号'
                   >
-                    {getFieldDecorator('contactEmail', {
+                    {getFieldDecorator('email', {
                       initialValue: connection.contactEmail,
                       rules: [{
                         required: true,
@@ -266,8 +271,8 @@ class SupplierInfo extends Component {
                     {...formItemLayout}
                     label='开户城市'
                     >
-                    {getFieldDecorator('accountCity', {
-                      initialValue: connection.accountCity,
+                    {getFieldDecorator('accountCityCode', {
+                      initialValue: connection.accountCityCode,
                     })(
                       <Input disabled={!this.state.editable} placeholder={this.state.editable ? '请输入' : ''} />
                     )}

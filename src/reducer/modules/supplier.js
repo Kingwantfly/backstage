@@ -196,7 +196,7 @@ function onErrorChangeSupplier (err) {
 }
 
 export function changeSupplier (params) {
-  const url = `//api.test.redshift.cc/admin/connections/connectionId=${params.connectionId}`
+  const url = `//api.test.redshift.cc/admin/connections/${params.connectionId}`
   return function (dispatch) {
     dispatch(requestChangeSupplier())
     return fetchCreator({
