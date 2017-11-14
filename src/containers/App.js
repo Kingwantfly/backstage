@@ -2,7 +2,6 @@ import React from 'react';
 import {  BrowserRouter as Router, Route } from 'react-router-dom';
 import { Layout } from 'antd';
 import LayoutSide from '../components/LayoutSide';
-import TopHeader from '../components/TopHeader';
 import '../css/layout.scss';
 import routes from '../routes/index';
 const { Content } = Layout;
@@ -18,15 +17,12 @@ const RouteWithSubRoutes = (route) => {
 const App = ({ routes }) => {
   return (
     <Layout>
-      <TopHeader />
-      <Layout>
-        <LayoutSide />
-        <Content>
-          {routes.map((route, i) => (
-            <RouteWithSubRoutes key={i} {...route}/>
-          ))}
-        </Content>
-      </Layout>
+      <LayoutSide />
+      <Content>
+        {routes.map((route, i) => (
+          <RouteWithSubRoutes key={i} {...route}/>
+        ))}
+      </Content>
     </Layout>
   )
 }

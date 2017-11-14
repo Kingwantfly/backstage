@@ -113,7 +113,7 @@ class SupplierTable extends Component {
       dataIndex: 'supplierCompanyName',
       width: 150,
       render: (text, record, index) => {
-        return <Link className='hoverable-link' to={`/connections/detail?connectionId=${record.connectionId}`}>{text}</Link>
+        return <Link className='hoverable-link' to={`/app/connections/detail?connectionId=${record.connectionId}`}>{text}</Link>
       }
     },
     {

@@ -16,7 +16,6 @@ class SupplierInfo extends Component {
     this.handleEdit = this.handleEdit.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleTrashSupplier = this.handleTrashSupplier.bind(this);
   }
 
   handleEdit (params) {
@@ -27,14 +26,6 @@ class SupplierInfo extends Component {
       this.props.getSupplierDetail(this.props.connectionId)
     }
   }
-
-  handleTrashSupplier (value, connectionId) {
-      let params = {
-        connectionId: connectionId,
-        trashed: value
-      }
-      this.props.actions.updateSupplierManagement(params)
-    }
 
   handleCancel () {
     this.props.form.resetFields()
@@ -62,7 +53,7 @@ class SupplierInfo extends Component {
       operationButton2 = connection.actions.indexOf('DELETE') !== -1
       ? (
         <Col span={2}>
-          <Popconfirm title='确认删除吗？' onConfirm={(e) => this.handleTrashSupplier(true, this.props.connectionId)} okText='删除' cancelText='取消'>
+          <Popconfirm title='确认删除吗？' okText='删除' cancelText='取消'>
             <Button type='danger'>删除</Button>
           </Popconfirm>
         </Col>
@@ -109,7 +100,6 @@ class SupplierInfo extends Component {
 
 
   render () {
-    console.log(this.props.connection);
     const operationButtonGroup = this.getOperationButton();
     const connection = this.props.connection;
     const { getFieldDecorator } = this.props.form;
@@ -128,7 +118,6 @@ class SupplierInfo extends Component {
         )
       }
     }
-    console.log(connection.connectionId);
     return (
       <div>
         <Form className='esInventory-form'>

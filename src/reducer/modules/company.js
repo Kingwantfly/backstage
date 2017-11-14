@@ -22,6 +22,9 @@ const ERROR_PUT_SUPPLIER_STATE = 'ERROR_PUT_SUPPLIER_STATE';
 const REQUEST_PUT_BASIC_STATE = 'REQUEST_PUT_BASIC_STATE';
 const SUCCESS_PUT_BASIC_STATE = 'SUCCESS_PUT_BASIC_STATE';
 const ERROR_PUT_BASIC_STATE = 'ERROR_PUT_BASIC_STATE';
+const REQUEST_GET_VALIDATATOKEN = 'REQUEST__GET_VALIDATATOKEN';
+const SUCCESS_GET_VALIDATATOKEN  = 'SUCCESS_GET_VALIDATATOKEN';
+const ERROR_GET_VALIDATATOKEN  = 'ERROR_GET_VALIDATATOKEN';
 // reducer
 export default (state = {}, action) => {
   switch (action.type) {
@@ -117,6 +120,20 @@ export default (state = {}, action) => {
       return Object.assign({}, state, {
         error: action.err,
         isPuttingBasicState: false
+    })
+    case REQUEST_GET_VALIDATATOKEN:
+      return Object.assign({}, state, {
+        gettingValidataToken: true
+    })
+    case SUCCESS_GET_VALIDATATOKEN:
+      return Object.assign({}, state, {
+        gettingValidataToken: false,
+        validateToken: action.val
+    })
+    case ERROR_GET_VALIDATATOKEN:
+      return Object.assign({}, state, {
+        error: action.err,
+        gettingValidataToken: false
     })
     default: {
       return state;
@@ -355,6 +372,38 @@ export function putBasicState (params) {
       body: params,
       success: json => dispatch(onSuccessPutBasicState(json.data)),
       error: error => dispatch(onErrorPutBasicState(error))
+    })
+  }
+}
+// 登录token验证
+function requestGetValidataToken () {
+  return {
+    type: REQUEST_GET_VALIDATATOKEN
+  }
+}
+
+function onSuccessGetValidataToken (val) {
+  return {
+    type: SUCCESS_GET_VALIDATATOKEN,
+    val: val
+  }
+}
+
+function onErrorGetValidataToken (err) {
+  return {
+    type: ERROR_GET_VALIDATATOKEN,
+    err: err
+  }
+}
+
+export function getValidataToken (params) {
+  const url = `//api.test.redshift.cc/util/validateToken`
+  return function (dispatch) {
+    dispatch(requestGetValidataToken())
+    return fetchCreator({
+      url: url,
+      success: json => dispatch(onSuccessGetValidataToken(json.data)),
+      error: error => dispatch(onErrorGetValidataToken(error))
     })
   }
 }

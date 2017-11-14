@@ -14,7 +14,7 @@ function loginProgress (val) {
   window.localStorage.setItem('user', JSON.stringify(val.user))
   window.localStorage.setItem('permissions', JSON.stringify(val.user.permissions))
   window.localStorage.setItem('theme', val.user.theme)
-  window.location.href='/home'
+  window.location.href='/app/home'
 }
 
 export default (state = initialState, action) => {

@@ -27,7 +27,6 @@ class HomeTable extends Component {
     });
   }
   handleOk = (e) => {
-    console.log(e);
     this.setState({
       visible: false
     });
@@ -42,7 +41,6 @@ class HomeTable extends Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
         const data = `search=${values.search}`
         this.props.getCompanyList(data);
       }
@@ -55,7 +53,7 @@ class HomeTable extends Component {
       dataIndex: 'companyName',
       className: 'content-table',
       render: (text, record, index) => {
-        return <Link className='hoverable-link' to={`/companies/detail?companyId=${record.companyId}`}>{text}</Link>
+        return <Link className='hoverable-link' to={`/app/companies/detail?companyId=${record.companyId}`}>{text}</Link>
       }
     },
     {
@@ -76,7 +74,7 @@ class HomeTable extends Component {
         <span>
           <a onClick={() => this.showModal(record)}>重置管理员登录密码</a>
           <span className="ant-divider" />
-          <Link className='hoverable-link' to={`/connections?companyId=${record.companyId}`}>管理</Link>
+          <Link className='hoverable-link' to={`/app/connections?companyId=${record.companyId}`}>管理</Link>
         </span>
       ),
     }];

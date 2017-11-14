@@ -6,7 +6,8 @@ import BackstageDetail from '../containers/BackstageDetail';
 import SupplierManagement from '../containers/SupplierManagement';
 import SupplierDetail from '../containers/SupplierDetail';
 import SuppilerIdentification from '../components/SuppilerIdentification';
-import App from '../containers/App'
+import App from '../containers/App';
+import Judge from '../containers/Judge';
 const RouteWithSubRoutes = (route) => (
   <Route path={route.path} exact={route.exact} render={props => {
     return (
@@ -18,27 +19,33 @@ const RouteWithSubRoutes = (route) => (
 
 const routes = [
   {
-    path: '/login',
-    component: Login
+    path: '/',
+    component: Judge,
+    exact: true
   },
   {
-    path: '/',
+    path: '/login',
+    component: Login,
+    exact: true
+  },
+  {
+    path: '/app',
     component: App,
     routes: [{
-        path: '/home',
+        path: '/app/home',
         component: HomePage
       },{
-        path: '/companies/:id',
+        path: '/app/companies/:id',
         component: BackstageDetail
       },{
-        path: '/connections',
+        path: '/app/connections',
         component: SupplierManagement,
         exact: true
       },{
-        path: '/connections/detail',
+        path: '/app/connections/detail',
         component: SupplierDetail
       },{
-        path: '/connections/identification',
+        path: '/app/connections/identification',
         component: SuppilerIdentification
       }
     ]

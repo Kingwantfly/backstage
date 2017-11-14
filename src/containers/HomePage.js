@@ -30,7 +30,6 @@ class HomePage extends Component {
     });
   }
   handleAddOk = (e) => {
-    console.log(e);
     this.setState({
       show: false
     });
@@ -65,7 +64,7 @@ class HomePage extends Component {
 function mapStateToProps (state) {
   const { company } = state
   return {
-    companyList: company.companyList,
+    companyList: company.companyList
   }
 }
 

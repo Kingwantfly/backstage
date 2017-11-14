@@ -79,7 +79,7 @@ class BackstageDetailBasic extends Component {
           >
             <span>{connectionCount}</span>
             <Button type="primary" className="basic-btn">
-              <Link className='hoverable-link' to={`/connections?companyId=${companyId}`}>管理供应商</Link>
+              <Link className='hoverable-link' to={`/app/connections?companyId=${companyId}`}>管理供应商</Link>
             </Button>
           </FormItem>
           <FormItem

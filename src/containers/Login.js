@@ -9,6 +9,10 @@ require('../css/login.scss')
 class Login extends Component {
 
   render () {
+    const user = window.localStorage.getItem('user') && JSON.parse(window.localStorage.getItem('user'))
+    if (user) {
+      window.location.href = './app/home'
+    }
     return (
       <div>
         <UserLogin
@@ -21,7 +25,6 @@ class Login extends Component {
 }
 
 function mapStateToProps (state) {
-  console.log(state);
   return {
     error: state.user.error,
     loginState: state.user.isLogin
